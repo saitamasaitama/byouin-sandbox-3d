@@ -6,20 +6,16 @@ const renderer = new THREE.WebGLRenderer();
 const dom=renderer.domElement;
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement);
-function Group(){
-  return new THREE.Group();
-}
 
-//const group=Group();
+//const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const cube = GameObject({x:4,y:0,z:0});
+const scene = Scene()
+scene.add( cube );
 
-alert(2);
-const scene = new THREE.Scene();
-alert(9);
+camera.position.z = 5;
 
-//const cube=GameObject();
-//scene.add( cube );
-//acene.add(GameObject({x:3,y:0,z:0}));
-/*
+
 function animate() {
 	requestAnimationFrame( animate );
 	cube.rotation.x += 0.013;
@@ -28,5 +24,3 @@ function animate() {
 }
 animate();
 camera.position.z = 5;
-}
-*/
