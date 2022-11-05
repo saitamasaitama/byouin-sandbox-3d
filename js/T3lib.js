@@ -7,17 +7,23 @@ class Scene{
     $("body").append(canvas);
     this.camera = new THREE.PerspectiveCamera(60, 
     window.innerWidth / window.innerHeight,0.1, 1000 );
-    
+    this.camera.position.z=3
+    this.camera.position.y=10
+    this.camera.rotation.x=-0.4*Math.PI
   } 
   static CreateScene(){
     const result=new Scene();
     return result;
   }
+  append(o){
+    this.scene.add(o);
+    return this;
+  }
   
   Animation(){
- 	  requestAnimationFrame( this.Animation );
+ 	  //requestAnimationFrame( this.Animation );
    // G.rotation.x += 0.013;
-   // G.rotation.y += 0.011;
+    this.scene.rotation.y += 0.03
 	  this.renderer.render( this.scene, this.camera );
   }
   
