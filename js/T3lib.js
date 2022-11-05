@@ -1,5 +1,27 @@
-function Scene(){
-  return new THREE.Scene();
+class Scene{
+  constructor(){
+    this.scene=new THREE.Scene();
+    this.renderer = new THREE.WebGLRenderer();
+    const canvas=$(this.renderer.domElement);
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    $("body").append(canvas);
+    this.camera = new THREE.PerspectiveCamera(60, 
+    window.innerWidth / window.innerHeight,0.1, 1000 );
+    
+  } 
+  static CreateScene(){
+    const result=new Scene();
+    return result;
+  }
+  
+  Animation(){
+ 	  requestAnimationFrame( this.Animation );
+   // G.rotation.x += 0.013;
+   // G.rotation.y += 0.011;
+	  this.renderer.render( this.scene, this.camera );
+  }
+  
+
 }
 
 function Group(){
@@ -26,3 +48,18 @@ function GameObject(
   mesh.position.z=position.z;
   return mesh;
 }
+/*
+function CreateScene(){
+  SceneData.camera = new THREE.PerspectiveCamera( 60, 
+  window.innerWidth / window.innerHeight,
+   0.1, 1000 );
+  const renderer = new THREE.WebGLRenderer();
+  const canvas=$(renderer.domElement);
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  $("body").append(canvas);
+  canvas.on("click",function(){alert(66)});
+  SceneData.scene= Scene()
+  
+}
+*/
