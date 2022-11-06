@@ -1,6 +1,8 @@
-const h= 12;
-const w= 12;
+const h= 16;
+const w= 16;
 const scene=Scene.CreateScene()
+$("Body").append("<div id='Debug'>dev</div>");
+const Debug=$("#Debug");
 
 
 const G=Group();
@@ -15,17 +17,99 @@ for(let y=0;y<h;y++){
     const info={
       x:x,
       y:y,
-      now:true,
+      current:true,
       next:false,
-      object:GameObject({x:xp,y:0,z:yp})
+      object:GameObject(
+        {x:xp,y:0,z:yp},
+        {x:0,y:0,z:0},
+        {x:0.75,y:0.75,z:0.75}
+      )
     };
+    
      //scene.append(info.object);
      G.add(info.object);
-     row.push[info];
+     row.push(info);
    }
+//   alert(row.length);
    Table.push(row);
 }
-scene.append(G);
+
+
+const helper=new THREE.AxesHelper(20);
+scene.add(helper)
+
+const light = new THREE.AmbientLight(0xFFFFFF, 1.0);
+const dlight = new THREE.DirectionalLight(0xFFFFFF, 1);
+dlight.rotation.x=0.25*Math.PI
+scene.add(light);
+scene.add(dlight);
+scene.add(G);
+
+
+function LifeUpdate(){
+ 
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      liveCheck(x,y);
+      o=Table[y][x];
+      if(o.next){
+          o.object.material.color=Color(0x00FF00);
+        }else{
+           o.object.material.color=Color(0xFF0000); 
+        }   
+     }
+  }
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      Table[y][x].current=Table[y][x].next;
+    }}  
+//  alert(76)
+}// life update
+
+
+function liveCheck(x,y){
+  const info=Table[y][x]; 
+ 
+  let count=0;
+  if(liveCheckC(x-1,y-1))count++;
+  if(liveCheckC(x,y-1))count++;
+  if(liveCheckC(x+1,y-1))count++;
+  if(liveCheckC(x-1,y))count++;
+  if(liveCheckC(x+1,y))count++;
+  if(liveCheckC(x-1,y+1))count++;
+  if(liveCheckC(x,y+1))count++;
+  if(liveCheckC(x+1,y+1))count++;
+    const self=info.current
+    const r3=  !self && count ==3;
+    const l23= self && (count ==3 || count == 2);
+    if(r3 || l23 ){
+      info.next=true;
+    }else{
+      info.next=false;
+    }
+    Table[y][x]=info;
+}//livecheck
+function liveCheckC(x,y){
+  if(x<0)return false;
+  if(w<=x)return false;
+  if(y<0)return false;
+  if(h<=y)return false;
+  //alert(Table[y][x])
+  const result = Table[y][x].current;
+ // alert(77)
+  return result;
+}
+
+function RandomSet(){
+  for(let y=0;y<h;y++){
+   for(let x=0;x<w;x++){
+     Table[y][x].current=0.5<Math.random()
+   }
+  }
+  Debug.text("rand")
+
+}
+
+RandomSet();
 setInterval(function(){scene.Animation()},33)
-//scene.Animation()
-alert(88)
+setInterval(function(){LifeUpdate() },1000)//alert(88)
