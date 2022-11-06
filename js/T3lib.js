@@ -10,6 +10,7 @@ class Scene{
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.camera.up = new THREE.Vector3( 0, 1, 0 )
     this.camera.position.y=20
+    this.camera.position.z=3.5
     this.camera.rotation.x=-0.45*Math.PI
     this.scene.background=new THREE.Color(0x666666)
   } 
@@ -23,7 +24,7 @@ class Scene{
     }  
     Animation(){ 	  
     //this.scene.rotation.y += 0.0
-     this.camera.rotation.z+=0.03
+    // this.camera.rotation.z+=0.03
 	   this.renderer.render( this.scene, this.camera );
   }
 }//Scene end
@@ -90,18 +91,3 @@ function GameObject(
   mesh.position.z=position.z;
   return mesh;
 }
-/*
-function CreateScene(){
-  SceneData.camera = new THREE.PerspectiveCamera( 60, 
-  window.innerWidth / window.innerHeight,
-   0.1, 1000 );
-  const renderer = new THREE.WebGLRenderer();
-  const canvas=$(renderer.domElement);
-
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  $("body").append(canvas);
-  canvas.on("click",function(){alert(66)});
-  SceneData.scene= Scene()
-  
-}
-*/

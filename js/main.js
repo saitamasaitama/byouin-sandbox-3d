@@ -1,5 +1,5 @@
-const h= 16;
-const w= 16;
+const h= 25;
+const w= 25;
 const scene=Scene.CreateScene()
 $("Body").append("<div id='Debug'>dev</div>");
 const Debug=$("#Debug");
@@ -35,10 +35,10 @@ for(let y=0;y<h;y++){
 }
 
 
-const helper=new THREE.AxesHelper(20);
-scene.add(helper)
+//const helper=new THREE.AxesHelper(20);
+//scene.add(helper)
 
-const light = new THREE.AmbientLight(0xFFFFFF, 1.0);
+const light = new THREE.AmbientLight(0x888888, 1.0);
 const dlight = new THREE.DirectionalLight(0xFFFFFF, 1);
 dlight.rotation.x=0.25*Math.PI
 scene.add(light);
@@ -53,9 +53,9 @@ function LifeUpdate(){
       liveCheck(x,y);
       o=Table[y][x];
       if(o.next){
-          o.object.material.color=Color(0x00FF00);
+          o.object.material.color=Color(0xFFFF00);
         }else{
-           o.object.material.color=Color(0xFF0000); 
+           o.object.material.color=Color(0x004444); 
         }   
      }
   }
